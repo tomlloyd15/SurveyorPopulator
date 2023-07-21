@@ -7,4 +7,5 @@ def get_coordinates(address=""):
     geolocator = Nominatim(user_agent="tobywilkins1@gmail.com")
     location = geolocator.geocode(address)
 
-    return location.latitude, location.longitude  # returns longitude and latitude
+    return location.latitude, location.longitude, location.raw.get('postcode') # returns longitude, latitude, and postcode
+

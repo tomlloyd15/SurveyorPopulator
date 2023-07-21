@@ -10,17 +10,18 @@ from Docx_Populators.EPC_populator import EPC_document_creator
 
 search_radius = 0.1  # Search Radius in KM
 address = "46 Cloford Close, Trowbridge, Wiltshire"  # Address as a string
-
+lat, lng, postcodeRecieved = get_coordinates(address)
+print(postcodeRecieved)
 """Planit Document Populate"""
 print("Processing Planit Document...")
-lat, lng = get_coordinates(address)
+#lat, lng = get_coordinates(address)
 planit_document_creator(planit_API(search_radius, lat, lng))
 
 
 """EPC Document Populate"""
 print("Processing EPC Document...")
 auth_token = "dG9ieXdpbGtpbnMxQGdtYWlsLmNvbTo0ZTc5OGNkY2U3ZjdjN2Q0ZTY2ZWVlZjdmMGQxNzI4YTNlZjc4YThk"
-postcode = "SW14 8LE"
+postcode = postcodeRecieved
 building_name = None
 address = None
 
