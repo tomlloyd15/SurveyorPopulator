@@ -7,6 +7,8 @@ from Docx_Populators.EPC_populator import EPC_document_creator
 
 from Tools.map_scrnshot_tool import save_to_image
 
+from Docx_Populators.combined_populator import combined_document_creator
+
 """Main Parameters"""
 search_radius = 0.1  # Search Radius in KM
 address = "46 Cloford Close, Trowbridge, Wiltshire"  # Address as a string
@@ -21,18 +23,22 @@ print(f"Postcode: {postcodeReceived}")
 save_to_image(lat, lng)
 
 
-"""Planit Document Populate"""
+"""Planit Data"""
 print("Processing Planit Document...")
-planit_document_creator(planit_API(search_radius, lat, lng))
+planit_data = planit_API(search_radius, lat, lng)
 
 
-"""EPC Document Populate"""
+"""EPC Data"""
 print("Processing EPC Document...")
 auth_token = "dG9ieXdpbGtpbnMxQGdtYWlsLmNvbTo0ZTc5OGNkY2U3ZjdjN2Q0ZTY2ZWVlZjdmMGQxNzI4YTNlZjc4YThk"
 postcode = postcodeReceived
 building_name = None
-address = None
+EPC_address = None
 
-EPC_document_creator(get_epc_report(auth_token, postcode, building_name, address)[0])
+EPC_data = get_epc_report(auth_token, postcode, building_name, EPC_address)[0]
 
+
+"""Populate Combined Document"""
+print("Compiling Document...")
+combined_document_creator(address, planit_data, EPC_data)
 
