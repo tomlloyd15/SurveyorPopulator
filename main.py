@@ -11,7 +11,7 @@ from Docx_Populators.combined_populator import combined_document_creator
 
 """Main Parameters"""
 search_radius = 0.1  # Search Radius in KM
-address = "46 Cloford Close, Trowbridge, Wiltshire"  # Address as a string
+address = "12 Eaton Crescent, Clifton, Bristol"  # Address as a string
 
 
 """Geocode"""
