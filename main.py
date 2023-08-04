@@ -10,35 +10,31 @@ from Tools.map_scrnshot_tool import save_to_image
 from Docx_Populators.combined_populator import combined_document_creator
 
 """Main Parameters"""
-search_radius = 0.1  # Search Radius in KM
-address = "12 Eaton Crescent, Clifton, Bristol"  # Address as a string
+#search_radius = 0.1  # Search Radius in KM
+#address = "12 Eaton Crescent, Clifton, Bristol"  # Address as a string
 
 
-"""Geocode"""
-lat, lng, postcodeReceived = get_coordinates(address)
-print(f"Postcode: {postcodeReceived}")
+def create_document(address, search_radius):
+    """Geocode"""
+    lat, lng, postcode_received = get_coordinates(address)
+    print(f"Postcode: {postcode_received}")
 
+    """Save map to image"""
+    save_to_image(lat, lng)
 
-"""Save map to image"""
-save_to_image(lat, lng)
+    """Planit Data"""
+    print("Processing Planit Document...")
+    planit_data = planit_API(search_radius, lat, lng)
 
+    """EPC Data"""
+    print("Processing EPC Document...")
+    auth_token = "dG9ieXdpbGtpbnMxQGdtYWlsLmNvbTo0ZTc5OGNkY2U3ZjdjN2Q0ZTY2ZWVlZjdmMGQxNzI4YTNlZjc4YThk"
+    postcode = postcode_received
+    building_name = None
+    EPC_address = None
 
-"""Planit Data"""
-print("Processing Planit Document...")
-planit_data = planit_API(search_radius, lat, lng)
+    EPC_data = get_epc_report(auth_token, postcode, building_name, EPC_address)[0]
 
-
-"""EPC Data"""
-print("Processing EPC Document...")
-auth_token = "dG9ieXdpbGtpbnMxQGdtYWlsLmNvbTo0ZTc5OGNkY2U3ZjdjN2Q0ZTY2ZWVlZjdmMGQxNzI4YTNlZjc4YThk"
-postcode = postcodeReceived
-building_name = None
-EPC_address = None
-
-EPC_data = get_epc_report(auth_token, postcode, building_name, EPC_address)[0]
-
-
-"""Populate Combined Document"""
-print("Compiling Document...")
-combined_document_creator(address, planit_data, EPC_data)
-
+    """Populate Combined Document"""
+    print("Compiling Document...")
+    combined_document_creator(address, planit_data, EPC_data)
