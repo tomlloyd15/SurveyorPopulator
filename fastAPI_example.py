@@ -7,9 +7,10 @@ from pydantic import BaseModel
 from main import create_document
 
 
-class Item (BaseModel):
+class Item(BaseModel):
     address: str
     document_status: int  # 0 - Unsuccessful, 1 - Requesting, 2 - Successful
+
 
 app = FastAPI()
 
@@ -26,17 +27,17 @@ app.add_middleware(
 )
 
 
-
-
 @app.get("/")
 def read_root():
     return {"Hello": "World"}
+
 
 """
 @app.get("/items/{item_id}")
 def read_item(item_id: int, q: Optional[str] = None):
     return {"item_id": item_id, "q": q}
 """
+
 
 @app.get("/map")
 def map_image():
@@ -56,5 +57,3 @@ def find_address(item: Item):
     item.document_status = 2
     print(item.document_status)
     return item.document_status
-
-

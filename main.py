@@ -5,13 +5,13 @@ from Tools.geocode_tool import get_coordinates
 from APIs.EPC_API import get_epc_report
 from Docx_Populators.EPC_populator import EPC_document_creator
 
-from Tools.map_scrnshot_tool import save_to_image
+from Tools.map_scrnshot_pystatic import save_to_image
 
 from Docx_Populators.combined_populator import combined_document_creator
 
 """Main Parameters"""
-#search_radius = 0.1  # Search Radius in KM
-#address = "12 Eaton Crescent, Clifton, Bristol"  # Address as a string
+search_radius = 0.1  # Search Radius in KM
+address = "12 Eaton Crescent, Clifton, Bristol"  # Address as a string
 
 
 def create_document(address, search_radius):
@@ -38,3 +38,6 @@ def create_document(address, search_radius):
     """Populate Combined Document"""
     print("Compiling Document...")
     combined_document_creator(address, planit_data, EPC_data)
+
+
+create_document(address, search_radius)
