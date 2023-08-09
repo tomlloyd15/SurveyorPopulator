@@ -39,5 +39,3 @@ def create_document(address, search_radius):
     print("Compiling Document...")
     combined_document_creator(address, planit_data, EPC_data)
 
-
-create_document(address, search_radius)
