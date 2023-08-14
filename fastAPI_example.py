@@ -56,7 +56,7 @@ def find_address(item: Item):
     try:
         create_document(item.address, 0.1)
         item.document_status = 2
-    except KeyError:
+    except (KeyError, AttributeError):
         item.document_status = 3
 
     print(item.document_status)
