@@ -9,7 +9,7 @@ from main import create_document
 
 class Item(BaseModel):
     address: str
-    document_status: int  # 0 - Unsuccessful, 1 - Requesting, 2 - Successful
+    document_status: int  # 0 - Unsuccessful, 1 - Requesting, 2 - Successful, 3 - Error
 
 
 app = FastAPI()
@@ -53,7 +53,11 @@ def get_file():
 @app.post("/items")
 def find_address(item: Item):
     print("posted: " + item.address)
-    create_document(item.address, 0.1)
-    item.document_status = 2
+    try:
+        create_document(item.address, 0.1)
+        item.document_status = 2
+    except KeyError:
+        item.document_status = 3
+
     print(item.document_status)
     return item.document_status
